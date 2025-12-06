@@ -124,16 +124,35 @@ class RiskDetector:
             if matches:
                  suggestions.append(PROTECTION_SUGGESTIONS.get(category, ""))
 
-        # Heuristic Scoring (EditalShield Logic)
-        base_score = entropy_norm * 30
-        pat_score_val = min(pattern_score * 25, 60)
-        section_bonus = 20 if section_type == "technical" else 0
-        zipf_bonus = zipf_score * 30
+        # Vector Space Model (TVSM) Calculation
+        # 1. H (Entropy) is already entropy_norm [0, 1]
+        H = entropy_norm
         
-        final_risk = min(int(base_score + pat_score_val + section_bonus + zipf_bonus), 100)
+        # 2. Z (Zipf) is already zipf_score [0, 1]
+        Z = zipf_score
+        
+        # 3. C (Compliance) = 1 / (1 + weighted_risk)
+        # pattern_score represents raw risk sum
+        C = 1.0 / (1.0 + pattern_score)
+        
+        # Magnitude ||v||
+        magnitude = math.sqrt(H**2 + Z**2 + C**2)
+        
+        # Max theoretical magnitude = sqrt(1+1+1) = 1.732
+        max_magnitude = 1.73205
+        
+        # Innovation Score (0-100)
+        innovation_score = int((magnitude / max_magnitude) * 100)
+
+        # Legacy Risk Score (Inverted Logic mostly)
+        # High Innovation usually means Low Risk, but let's keep the specific calculation for UI compatibility
+        base_risk = (1.0 - C) * 100 # Simple inversion of compliance
+        final_risk = int(base_risk)
         
         return {
+            "innovation_score": innovation_score,
             "risk_score": final_risk,
+            "vector": {"H": H, "Z": Z, "C": C},
             "entropy": entropy_norm,
             "zipf_score": zipf_score,
             "section_type": section_type,

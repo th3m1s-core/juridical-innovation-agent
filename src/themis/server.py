@@ -17,27 +17,36 @@ from themis.reasoning.detector import RiskDetector
 detector = RiskDetector()
 
 @mcp.tool()
-def analyze_risk(text: str) -> str:
+def analyze_innovation(text: str) -> str:
     """
-    Analisa o risco de exposição de PI e complexidade técnica.
-    Retorna score (0-100), padrões encontrados e sugestões.
+    Analisa a inovação usando o Modelo Vetorial de Themis (TVSM).
+    Retorna Score de Inovação, Vetores (H, Z, C) e Riscos.
     """
     result = detector.analyze(text)
     
-    # Format output for LLM consumption
-    output = f"🛡️ Risk Analysis (Score: {result['risk_score']}/100)\n"
-    output += f"- Type: {result['section_type']}\n"
-    output += f"- Tech Density (Zipf): {result['zipf_score']:.2f}\n"
+    # Header High-Tech
+    output = f"⬢ THEMIS VECTOR ANALYSIS (v1.0)\n"
+    output += f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+    output += f"💎 INNOVATION INDEX: {result['innovation_score']}/100\n\n"
     
+    # Vector Components
+    v = result['vector']
+    output += f"📐 VECTOR COMPONENTS [H, Z, C]:\n"
+    output += f"  • H (Entropy):    {v['H']:.4f} [Info Density]\n"
+    output += f"  • Z (Zipf):       {v['Z']:.4f} [Tech Depth]\n"
+    output += f"  • C (Compliance): {v['C']:.4f} [Legal Safety]\n"
+    output += f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+    
+    # Risk & Patterns
     if result['patterns_found']:
-        output += "\n🔍 Sensitive Patterns Detected:\n"
+        output += f"\n⚠️ RISK DETECTED (Compliance Drop):\n"
         for cat, matches in result['patterns_found'].items():
             output += f"  - {cat.upper()}: {', '.join(matches)}\n"
     
     if result['suggestions']:
-        output += "\n💡 Suggestions:\n"
+        output += "\n💡 PIVOT SUGGESTIONS:\n"
         for sug in result['suggestions']:
-            output += f"  - {sug}\n"
+            output += f"  > {sug}\n"
             
     return output
 
