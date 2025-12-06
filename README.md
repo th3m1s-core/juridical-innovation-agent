@@ -120,6 +120,28 @@ npx @modelcontextprotocol/inspector python -m themis.server
 }
 ```
 
+### 🔄 Integrated Workflow
+> *"Themis pivots the idea, Patent Engine protects it."*
+
+---
+
+## 🌌 The Symbeon Innovation Ecosystem
+
+**Themis Engine** is the "Validation Core" of the Symbeon Labs "Innovation Trinity".
+
+<div align="center">
+
+| 🛡️ 1. Opportunity | ⚖️ 2. Validation | 🔬 3. Protection |
+| :---: | :---: | :---: |
+| **[EditalShield](https://github.com/symbeon-labs/editalshield)** | **[Themis Engine](https://github.com/symbeon-labs/juridical-innovation-agent)** | **[Patent Engine](https://github.com/symbeon-labs/patent_intelligence_engine)** |
+| *Fundraising Intelligence* | *Juridical Co-Founder* | *Asset Factory* |
+| Discovers funding & fits project to public calls. | **Pivots ideas into patentable assets (You are here).** | Searches priors & drafts valid patents. |
+
+</div>
+
+### 🔌 Connect the Trinity (MCP Config)
+Add both **Themis** and **Patent Engine** to your `claude_desktop_config.json` to enable the full **"Check Legal -> Draft Patent"** workflow within Claude.
+
 ---
 
 ## 🛠️ Tech Stack
