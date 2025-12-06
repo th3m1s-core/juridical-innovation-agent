@@ -13,8 +13,10 @@ def get_legal_context() -> str:
     return kb.get_context()
 
 from themis.reasoning.detector import RiskDetector
+from themis.reasoning.optimizer import VectorOptimizer
 
 detector = RiskDetector()
+optimizer = VectorOptimizer()
 
 @mcp.tool()
 def analyze_innovation(text: str) -> str:
@@ -49,6 +51,29 @@ def analyze_innovation(text: str) -> str:
             output += f"  > {sug}\n"
             
     return output
+
+@mcp.tool()
+def optimize_innovation(text: str) -> str:
+    """
+    Analisa o texto E fornece um plano estratégico de otimização.
+    Identifica o gargalo vetorial e simula melhorias específicas.
+    """
+    result = detector.analyze(text)
+    
+    # Generate strategic optimization report
+    optimization_report = optimizer.generate_optimization_report(
+        result['vector'], 
+        result['patterns_found']
+    )
+    
+    # Combine analysis with optimization guidance
+    output = f"⬢ THEMIS STRATEGIC OPTIMIZATION\n"
+    output += f"━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n"
+    output += f"Current Innovation Score: {result['innovation_score']}/100\n"
+    output += optimization_report
+    
+    return output
+
 
 def main():
     mcp.run()

@@ -54,7 +54,36 @@ Detects if a project falls under **Art. 10 Constraints** (Software as such) and 
 | "A software to manage sales" | "A method for distributed transaction processing" |
 | "Dashboard for metrics" | "Real-time data visualization engine optimization" |
 
-### 3. 📚 Deep Legal Context (RAG-Lite)
+
+### 3. 📐 Vector-Guided Optimization (Strategic Intelligence)
+
+Themis doesn't just score—it **diagnoses and prescribes**.
+
+Using a **3D Vector Space Model** ($\vec{I} = [H, Z, C]$), it identifies which dimension is limiting your Innovation Score:
+- **H (Entropy):** Information density
+- **Z (Zipf):** Technical vocabulary sophistication  
+- **C (Compliance):** Legal safety from Art. 10 blockers
+
+**Example Output:**
+```
+🎯 BOTTLENECK IDENTIFIED: C (Compliance)
+   Current Value: 0.42
+   Potential Gain: +23% if optimized
+
+💡 RECOMMENDED ACTIONS:
+   ⚖️ PIVOT: Focus on the TECHNICAL effect, not business outcome
+   ⚖️ Instead of: 'automates sales tracking'
+   ⚖️ Say: 'real-time event stream processing with sub-second latency'
+
+📈 IMPACT SIMULATION (if C improves 20%):
+   Current Score: 58/100
+   Projected Score: 71/100
+   Expected Gain: +13 points
+```
+
+📖 **[See Mathematical Model](docs/MATHEMATICAL_MODEL.md)** for the full vector space formulation.
+
+### 4. 📚 Deep Legal Context (RAG-Lite)
 Powered by a curated knowledge base of:
 - **LPI 9.279/96** (Industrial Property Law)
 - **INPI Guidelines** for Computer Implemented Inventions
