@@ -12,13 +12,34 @@ def get_legal_context() -> str:
     """Retorna o contexto jurídico (LPI, TRL) carregado na memória."""
     return kb.get_context()
 
+from themis.reasoning.detector import RiskDetector
+
+detector = RiskDetector()
+
 @mcp.tool()
-def analyze_patentability(description: str) -> str:
+def analyze_risk(text: str) -> str:
     """
-    Analisa a patentiabilidade de uma descrição técnica baseada na LPI.
-    (Mock implementation for skeleton)
+    Analisa o risco de exposição de PI e complexidade técnica.
+    Retorna score (0-100), padrões encontrados e sugestões.
     """
-    return f"Analyzer initialized. Context loaded: {len(kb.documents)} docs. Analysis for: {description[:50]}..."
+    result = detector.analyze(text)
+    
+    # Format output for LLM consumption
+    output = f"🛡️ Risk Analysis (Score: {result['risk_score']}/100)\n"
+    output += f"- Type: {result['section_type']}\n"
+    output += f"- Tech Density (Zipf): {result['zipf_score']:.2f}\n"
+    
+    if result['patterns_found']:
+        output += "\n🔍 Sensitive Patterns Detected:\n"
+        for cat, matches in result['patterns_found'].items():
+            output += f"  - {cat.upper()}: {', '.join(matches)}\n"
+    
+    if result['suggestions']:
+        output += "\n💡 Suggestions:\n"
+        for sug in result['suggestions']:
+            output += f"  - {sug}\n"
+            
+    return output
 
 def main():
     mcp.run()
