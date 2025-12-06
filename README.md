@@ -2,7 +2,11 @@
 ### Juridical Innovation Agent
 
 <p align="center">
-  <img src="docs/assets/logo.png" width="200" alt="Themis Logo">
+  <img src="docs/assets/banner.png" width="100%" alt="Themis AI Interface" style="border-radius: 10px; margin-bottom: 20px;">
+</p>
+
+<p align="center">
+  <img src="docs/assets/logo.png" width="150" alt="Themis Logo">
 </p>
 
 <p align="center">
