@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=24&duration=2000&pause=500&color=00D9FF&center=true&vCenter=true&width=800&lines=%3E+Initializing+Themis+Juridical+Core...;%3E+Loading+LPI+9.279%2F96+Knowledge+Base...;%3E+Analyzing+Innovation+Project...;%3E+Status:+PATENTABLE+WITH+MODIFICATIONS" alt="Themis Thinking" />
+  <img src="docs/assets/neural_console.svg" width="100%" alt="Themis Neural Console">
 </p>
 
 <p align="center">

@@ -1,0 +1,103 @@
+<svg width="800" height="400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&amp;display=swap');
+      
+      .bg { fill: #0D1117; }
+      .container { font-family: 'Fira Code', 'Courier New', monospace; font-size: 14px; }
+      
+      /* Colors */
+      .cyan { fill: #00D9FF; text-shadow: 0 0 10px rgba(0, 217, 255, 0.5); }
+      .pink { fill: #FF0055; text-shadow: 0 0 10px rgba(255, 0, 85, 0.5); }
+      .green { fill: #00FF9D; }
+      .dim { fill: #444c56; }
+      .white { fill: #c9d1d9; }
+      
+      /* Animations */
+      @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+      .cursor { animation: blink 1s step-end infinite; }
+      
+      @keyframes scan { 0% { transform: translateY(-100%); } 100% { transform: translateY(1000%); } }
+      .scanline { fill: url(#gradient); opacity: 0.1; animation: scan 8s linear infinite; pointer-events: none; }
+      
+      @keyframes glitch {
+        0% { transform: translate(0); }
+        20% { transform: translate(-2px, 2px); }
+        40% { transform: translate(-2px, -2px); }
+        60% { transform: translate(2px, 2px); }
+        80% { transform: translate(2px, -2px); }
+        100% { transform: translate(0); }
+      }
+      .glitch-text { animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite; animation-play-state: paused; }
+      .glitch-text:hover { animation-play-state: running; }
+
+      @keyframes load { 0% { width: 0; } 100% { width: 300px; } }
+      .progress-bar { fill: #00D9FF; animation: load 3s ease-out forwards; }
+      
+      @keyframes type1 { 0% { opacity: 0; } 10% { opacity: 1; } 100% { opacity: 1; } }
+      @keyframes type2 { 0% { opacity: 0; } 30% { opacity: 0; } 40% { opacity: 1; } 100% { opacity: 1; } }
+      @keyframes type3 { 0% { opacity: 0; } 60% { opacity: 0; } 70% { opacity: 1; } 100% { opacity: 1; } }
+      
+      .line1 { animation: type1 5s linear infinite; }
+      .line2 { animation: type2 5s linear infinite; }
+      .line3 { animation: type3 5s linear infinite; }
+    </style>
+    <linearGradient id="gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#00D9FF;stop-opacity:0" />
+      <stop offset="50%" style="stop-color:#00D9FF;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#00D9FF;stop-opacity:0" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background window -->
+  <rect width="100%" height="100%" class="bg" rx="10" />
+  <rect x="0" y="0" width="100%" height="30" fill="#161b22" rx="10" />
+  <circle cx="20" cy="15" r="4" fill="#ff5f56" />
+  <circle cx="40" cy="15" r="4" fill="#ffbd2e" />
+  <circle cx="60" cy="15" r="4" fill="#27c93f" />
+  <text x="350" y="20" class="dim" font-size="12" text-anchor="middle">root@themis-engine:~</text>
+
+  <!-- Content -->
+  <g class="container">
+    <!-- Header -->
+    <text x="30" y="70" class="cyan" font-weight="bold" font-size="16">THEMIS // JURIDICAL_CORE_SYSTEM_v1.0</text>
+    <text x="30" y="90" class="dim">----------------------------------------</text>
+
+    <!-- Console Output -->
+    <g class="line1">
+      <text x="30" y="120" class="green">➜</text>
+      <text x="50" y="120" class="white">Initializing LPI 9.279/96 Knowledge Base...</text>
+      <text x="750" y="120" class="green" text-anchor="end">[OK]</text>
+    </g>
+
+    <g class="line2">
+      <text x="30" y="150" class="green">➜</text>
+      <text x="50" y="150" class="white">Detecting Sensitive Patterns (Art. 10)...</text>
+      <rect x="50" y="165" height="4" class="progress-bar" />
+    </g>
+
+    <g class="line3">
+      <text x="30" y="200" class="pink">➜ WARNING:</text>
+      <text x="120" y="200" class="white">Business Method Detected in 'Claim 1'</text>
+      <text x="30" y="225" class="cyan">➜ PIVOTING:</text>
+      <text x="120" y="225" class="white">Transforming to "Technical Signal Processing"...</text>
+    </g>
+
+    <!-- Data Stream Side Panel -->
+    <rect x="580" y="50" width="1" height="300" class="dim" />
+    <text x="600" y="70" class="dim">MEMORY_DUMP</text>
+    <text x="600" y="100" class="dim" font-size="12">0x4A 0x1F 0x00</text>
+    <text x="600" y="120" class="cyan" font-size="12" opacity="0.5">0xEF 0x11 0x22</text>
+    <text x="600" y="140" class="dim" font-size="12">0x00 0x8A 0x99</text>
+    <text x="600" y="160" class="dim" font-size="12">0xFF 0xFF 0xFF</text>
+    <text x="600" y="180" class="pink" font-size="12" opacity="0.8">ERROR_NULL</text>
+    <text x="600" y="200" class="dim" font-size="12">0x42 0x42 0x42</text>
+
+    <!-- Blinking Cursor -->
+    <text x="30" y="270" class="cyan">root@themis:~$</text>
+    <rect x="150" y="260" width="8" height="14" class="cyan cursor" />
+  </g>
+
+  <!-- Scanline Effect -->
+  <rect width="100%" height="20" class="scanline" />
+</svg>
