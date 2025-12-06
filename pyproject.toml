@@ -26,6 +26,10 @@ dev = [
     "flake8",
     "mypy"
 ]
+database = [
+    "psycopg2-binary"  # For EditalShield PostgreSQL integration
+]
+
 
 [project.scripts]
 themis = "themis.server:main"
