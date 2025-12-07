@@ -83,7 +83,28 @@ Using a **3D Vector Space Model** ($\vec{I} = [H, Z, C]$), it identifies which d
 
 📖 **[See Mathematical Model](docs/MATHEMATICAL_MODEL.md)** for the full vector space formulation.
 
-### 4. 📚 Deep Legal Context (RAG-Lite)
+### 5. 📄 Automated Academic Paper Generation
+
+Themis can automatically transform analysis results into **publication-ready academic papers**.
+
+**Features:**
+- Auto-generates complete paper structure (Abstract, Intro, Methods, Results, Conclusion)
+- Creates publication-quality figures (3D vectors, radar charts, score gauges)
+- Formats mathematical equations in LaTeX
+- Supports multiple templates (IEEE, ABNT, arXiv)
+
+**Example:**
+```python
+from themis.export import PaperExporter
+
+exporter = PaperExporter(analysis, original_text=project_text)
+paper_config = exporter.to_paper_config(title="My Analysis")
+# Generates: JSON config + 3 figures → Ready for LaTeX compilation
+```
+
+📖 **[See Paper Generation Guide](docs/PAPER_GENERATION_GUIDE.md)** for complete documentation.
+
+### 6. 📚 Deep Legal Context (RAG-Lite)
 Powered by a curated knowledge base of:
 - **LPI 9.279/96** (Industrial Property Law)
 - **INPI Guidelines** for Computer Implemented Inventions
