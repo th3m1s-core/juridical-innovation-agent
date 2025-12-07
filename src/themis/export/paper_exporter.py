@@ -50,8 +50,11 @@ class PaperExporter:
         # Generate abstract
         abstract = self._generate_abstract()
         
-        # Generate sections
-        sections = self._generate_sections()
+        # Generate figures
+        figure_paths = self._generate_figures()
+        
+        # Generate sections (with figures)
+        sections = self._generate_sections(figure_paths)
         
         # Generate references
         references = self._generate_references()
@@ -91,7 +94,26 @@ C (Legal Compliance) = {vector.get('C', 0):.3f}. """
         
         return abstract
     
-    def _generate_sections(self) -> List[Dict]:
+    def _generate_figures(self) -> List[str]:
+        """
+        Generate all visualization figures.
+        
+        Returns:
+            List of figure file paths (relative paths for LaTeX)
+        """
+        try:
+            from .figures import FigureGenerator
+            
+            fig_gen = FigureGenerator()
+            figure_paths = fig_gen.generate_all(self.analysis, prefix="themis")
+            
+            # Convert to relative paths for LaTeX
+            return [str(p).replace('\\', '/') for p in figure_paths]
+        except Exception as e:
+            print(f"Warning: Could not generate figures: {e}")
+            return []
+    
+    def _generate_sections(self, figure_paths: List[str] = None) -> List[Dict]:
         """Generate paper sections from analysis."""
         sections = []
         
@@ -108,10 +130,21 @@ C (Legal Compliance) = {vector.get('C', 0):.3f}. """
         })
         
         # 3. Results
+        result_figures = []
+        if figure_paths:
+            # Add figures to Results section
+            for fig_path in figure_paths:
+                fig_name = fig_path.split('/')[-1].replace('.png', '').replace('_', ' ').title()
+                result_figures.append({
+                    "path": fig_path,
+                    "caption": f"Themis Analysis: {fig_name}",
+                    "width": "0.8\\textwidth"
+                })
+        
         sections.append({
             "title": "Analysis Results",
             "content": self._section_results(),
-            "figures": []  # Will be populated by figure generator
+            "figures": result_figures
         })
         
         # 4. Strategic Recommendations (if applicable)
