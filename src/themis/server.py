@@ -144,7 +144,64 @@ def check_prior_art(keywords: str) -> str:
     return output
 
 
+
+from themis.export import PaperExporter
+import json
+import os
+
+@mcp.tool()
+def generate_analysis_paper(
+    text: str,
+    title: str = None,
+    template: str = "ieee",
+    output_dir: str = "output"
+) -> str:
+    """
+    Gera um artigo acadêmico completo a partir da análise de inovação.
+    
+    Args:
+        text: Texto do projeto para analisar
+        title: Título do paper (auto-gerado se None)
+        template: Template LaTeX (ieee, abnt, arxiv)
+        output_dir: Diretório de saída
+    
+    Returns:
+        Caminho do arquivo .tex gerado
+    """
+    try:
+        # 1. Analyze the text
+        analysis = detector.analyze(text)
+        
+        # 2. Export to paper config
+        exporter = PaperExporter(analysis, original_text=text)
+        paper_config = exporter.to_paper_config(title=title)
+        
+        # 3. Save config as JSON for Paper Generator
+        os.makedirs(output_dir, exist_ok=True)
+        config_path = os.path.join(output_dir, "paper_config.json")
+        
+        with open(config_path, 'w', encoding='utf-8') as f:
+            json.dump(paper_config, f, indent=2, ensure_ascii=False)
+        
+        output_msg = f"""✅ Paper configuration generated!
+
+Innovation Score: {analysis['innovation_score']}/100
+Vector: H={analysis['vector']['H']:.3f}, Z={analysis['vector']['Z']:.3f}, C={analysis['vector']['C']:.3f}
+
+Config saved to: {config_path}
+
+To generate the paper, run:
+  paper-gen generate {config_path} --template {template}
+"""
+        
+        return output_msg
+    
+    except Exception as e:
+        return f"❌ Error generating paper: {str(e)}"
+
+
 def main():
+
     mcp.run()
 
 if __name__ == "__main__":
