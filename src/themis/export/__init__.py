@@ -1,4 +1,6 @@
 from .paper_exporter import PaperExporter
-from .figures import FigureGenerator
 
-__all__ = ["PaperExporter", "FigureGenerator"]
+# FigureGenerator is imported lazily to avoid matplotlib dependency
+# Import it directly when needed: from themis.export.figures import FigureGenerator
+
+__all__ = ["PaperExporter"]
