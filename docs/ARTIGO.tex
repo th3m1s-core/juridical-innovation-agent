@@ -61,18 +61,22 @@ Modelamos a inovação como um vetor $\vec{I} \in \mathbb{R}^3$:
 Onde cada dimensão representa um aspecto crítico da patenteabilidade.
 
 \subsubsection{Densidade de Informação ($\mathcal{H}$)}
+\label{sub:densidade}
 
-Baseada na Entropia de Shannon, $\mathcal{H}$ mede o conteúdo de informação técnica:
+No Themis Engine, a Densidade de Informação não é apenas a Entropia de Shannon pura, mas uma função composta que recompensa a concisão técnica. Definimos $\mathcal{H}$ como:
 
 \begin{equation}
-\mathcal{H}(X) = - \sum_{i=1}^{n} p(x_i) \log_2 p(x_i)
+\mathcal{H} = w_h \cdot \mathcal{H}_{norm} + w_d \cdot \mathcal{D}
 \end{equation}
 
-Normalizada para $[0, 1]$, onde:
+Onde:
 \begin{itemize}
-    \item $\mathcal{H} \to 0$: Texto genérico, baixa informação
-    \item $\mathcal{H} \to 1$: Especificação técnica densa
+    \item $\mathcal{H}_{norm}$ é a Entropia de Shannon normalizada para $[0, 1]$.
+    \item $\mathcal{D} = \frac{|W_{unique}|}{|W_{total}|}$ é o \textbf{Fator de Densidade Relativa}, que mede a proporção de conteúdo único.
+    \item $w_h = 0.7$ e $w_d = 0.3$ são os pesos de calibração do protocolo.
 \end{itemize}
+
+Essa formulação garante que descrições precisas (alta densidade) não sejam penalizadas por possuírem baixo volume total de palavras.
 
 \subsubsection{Sofisticação Técnica ($\mathcal{Z}$)}
 

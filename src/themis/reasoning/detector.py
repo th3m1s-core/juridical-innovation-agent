@@ -12,17 +12,20 @@ class RiskDetector:
     def __init__(self):
         pass
 
-    def calculate_entropy(self, text: str) -> Tuple[float, float]:
-        """Calcula Shannon entropy do texto."""
+    def calculate_entropy(self, text: str) -> Tuple[float, float, float]:
+        """Calcula Shannon entropy e fator de densidade relativa."""
         words = text.lower().split()
         if not words:
-            return 0.0, 0.0
+            return 0.0, 0.0, 0.0
 
         word_freq = {}
         for word in words:
             word_freq[word] = word_freq.get(word, 0) + 1
 
         total = len(words)
+        unique_words = len(word_freq)
+        
+        # Shannon Entropy
         entropy = 0.0
         for freq in word_freq.values():
             p = freq / total
@@ -30,10 +33,14 @@ class RiskDetector:
                 entropy -= p * math.log2(p)
 
         # Normalize to [0, 1]
-        max_entropy = math.log2(len(word_freq)) if len(word_freq) > 1 else 1
+        max_entropy = math.log2(unique_words) if unique_words > 1 else 1
         entropy_normalized = entropy / max_entropy if max_entropy > 0 else 0
 
-        return round(entropy, 4), round(entropy_normalized, 4)
+        # Relative Density Factor (RDF)
+        # Recompensa a precisão: proporção de palavras únicas
+        density_factor = unique_words / total if total > 0 else 0
+
+        return round(entropy, 4), round(entropy_normalized, 4), round(density_factor, 4)
 
     def calculate_zipf_score(self, text: str) -> float:
         """
@@ -110,7 +117,7 @@ class RiskDetector:
 
     def analyze(self, text: str) -> dict:
         """Realiza análise completa de risco do texto."""
-        entropy, entropy_norm = self.calculate_entropy(text)
+        entropy_raw, entropy_norm, density_factor = self.calculate_entropy(text)
         zipf_score = self.calculate_zipf_score(text)
         patterns = self.detect_patterns(text)
         section_type = self.classify_section(text)
@@ -125,8 +132,9 @@ class RiskDetector:
                  suggestions.append(PROTECTION_SUGGESTIONS.get(category, ""))
 
         # Vector Space Model (TVSM) Calculation
-        # 1. H (Entropy) is already entropy_norm [0, 1]
-        H = entropy_norm
+        # 1. H (Entropy) Refined: 70% Entropy + 30% Relative Density
+        # Isso evita que textos concisos sejam prejudicados.
+        H = (0.7 * entropy_norm) + (0.3 * density_factor)
         
         # 2. Z (Zipf) is already zipf_score [0, 1]
         Z = zipf_score
@@ -154,6 +162,7 @@ class RiskDetector:
             "risk_score": final_risk,
             "vector": {"H": H, "Z": Z, "C": C},
             "entropy": entropy_norm,
+            "density_factor": density_factor,
             "zipf_score": zipf_score,
             "section_type": section_type,
             "patterns_found": patterns,
