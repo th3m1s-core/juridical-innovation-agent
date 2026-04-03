@@ -25,7 +25,7 @@
 
 **Themis Engine** is not just a validator; it's a **Juridical Co-Founder**. 
 
-Designed by [Symbeon Labs](https://github.com/symbeon-labs), this AI agent proactively analyzes technical descriptions against Brazilian Innovation Law (LPI 9.279/96) to transform "business ideas" into **patentable technological assets**.
+Designed by [Symbeon Labs](https://github.com/th3m1s-core), this AI agent proactively analyzes technical descriptions against Brazilian Innovation Law (LPI 9.279/96) to transform "business ideas" into **patentable technological assets**.
 
 > *"Themis doesn't just say 'NO'. It says 'PIVOT TO THIS'."*
 
@@ -120,7 +120,7 @@ Themis is built as an **MCP Server**, ready to plug into Claude, Cline, or any a
 
 ```bash
 # 1. Clone & Install
-git clone https://github.com/symbeon-labs/juridical-innovation-agent.git
+git clone https://github.com/th3m1s-core/juridical-innovation-agent.git
 cd juridical-innovation-agent
 pip install -e .
 
@@ -142,7 +142,7 @@ npx @modelcontextprotocol/inspector python -m themis.server
 ```
 
 ### 🔄 Integrated Workflow
-> *"Themis pivots the idea, Patent Engine protects it."*
+> *"Themis pivots the idea, Academic Agent establishes the authority."*
 
 ---
 
@@ -154,9 +154,9 @@ npx @modelcontextprotocol/inspector python -m themis.server
 
 | 🛡️ 1. Opportunity | ⚖️ 2. Validation | 🔬 3. Protection |
 | :---: | :---: | :---: |
-| **[EditalShield](https://github.com/symbeon-labs/editalshield)** | **[Themis Engine](https://github.com/symbeon-labs/juridical-innovation-agent)** | **[Patent Engine](https://github.com/symbeon-labs/patent_intelligence_engine)** |
-| *Fundraising Intelligence* | *Juridical Co-Founder* | *Asset Factory* |
-| Discovers funding & fits project to public calls. | **Pivots ideas into patentable assets (You are here).** | Searches priors & drafts valid patents. |
+| **[EditalShield](https://github.com/th3m1s-core/editalshield)** | **[Themis Engine](https://github.com/th3m1s-core/juridical-innovation-agent)** | **[Academic Paper Gen](https://github.com/th3m1s-core/academic-paper-generator)** |
+| *Fundraising Intelligence* | *Juridical Co-Founder* | *Scientific Authority* |
+| Discovers funding & fits project to public calls. | **Pivots ideas into patentable assets (You are here).** | Generates high-impact academic papers. |
 
 </div>
 
